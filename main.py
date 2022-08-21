@@ -49,12 +49,12 @@ if __name__ == '__main__':
     session.commit()
 
     def select_publisher():
-        q = input('Input publisher id or publisher name: ')
-        if q.isdigit():
-            for p in session.query(Publisher).filter(Publisher.id == q).all():
+        publisher = input('Input publisher id or publisher name: ')
+        if publisher.isdigit():
+            for p in session.query(Publisher).filter(Publisher.id == publisher).all():
                 print(p)
-        if q.isalpha():
-            for p in session.query(Publisher).filter(Publisher.name == q).all():
+        if publisher.isalpha():
+            for p in session.query(Publisher).filter(Publisher.name == publisher).all():
                 print(p)
 
     select_publisher()
