@@ -48,6 +48,7 @@ if __name__ == '__main__':
         session.add(model(id=record.get('pk'), **record.get('fields')))
     session.commit()
 
+
     def select_publisher():
         publisher = input('Input publisher id or publisher name: ')
         if publisher.isdigit():
@@ -57,6 +58,18 @@ if __name__ == '__main__':
             for p in session.query(Publisher).filter(Publisher.name == publisher).all():
                 print(p)
 
-    select_publisher()
+
+    def select_shop():
+        publisher = input('Input publisher id or publisher name: ')
+        if publisher.isdigit():
+            for p in session.query(Shop).join(Stock).join(Book).join(Publisher).filter(Publisher.id == publisher).all():
+                print(p)
+        if publisher.isalpha():
+            for p in session.query(Shop).join(Stock).join(Book).join(Publisher).filter(
+                    Publisher.name.ilike(f'%{publisher}%')).all():
+                print(p)
+
+
+    select_shop()
 
     session.close()
